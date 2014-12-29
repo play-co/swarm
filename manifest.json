@@ -30,7 +30,7 @@
     },
     "versionCode": 1
   },
-  "shortName": "spacedemo",
+  "shortName": "swarm",
   "splash": {
     "autoHide": true,
     "universal": "resources/splash/splash.png"
@@ -42,6 +42,6 @@
   "supportedOrientations": [
     "portrait"
   ],
-  "title": "Space Demo",
+  "title": "Swarming Space",
   "version": "1.0.0"
 }

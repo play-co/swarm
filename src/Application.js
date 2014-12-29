@@ -319,17 +319,16 @@ var Enemy = Class(Entity, function() {
  */
 var Enemies = Class(EntityPool, function() {
 	var sup = EntityPool.prototype;
-	var SPAWN_COOLDOWN_MIN = config.enemies.spawnCooldownMin;
-	var SPAWN_COOLDOWN_MAX = config.enemies.spawnCooldownMax;
 
 	this.init = function(opts) {
-		this.spawnCooldown = 0;
 		opts.ctor = Enemy;
 		sup.init.call(this, opts);
 	};
 
 	this.reset = function() {
-		this.spawnCooldown = SPAWN_COOLDOWN_MIN;
+		this.spawnCooldown = 0;
+		this.spawnMin = config.enemies.spawnCooldownMin;
+		this.spawnMax = config.enemies.spawnCooldownMax;
 		sup.reset.call(this);
 	};
 
@@ -337,12 +336,17 @@ var Enemies = Class(EntityPool, function() {
 		this.spawnCooldown -= dt;
 		if (this.spawnCooldown <= 0) {
 			this.spawnEnemy();
-			this.spawnCooldown += rollFloat(SPAWN_COOLDOWN_MIN, SPAWN_COOLDOWN_MAX);
+			this.spawnCooldown += rollFloat(this.spawnMin, this.spawnMax);
 		}
 		sup.update.call(this, dt);
 	};
 
 	this.spawnEnemy = function() {
+		// increase game difficulty by spawning more enemies over time
+		if (this.spawnMax > this.spawnMin) {
+			this.spawnMax--;
+		}
+
 		var type = choose(config.enemies.types);
 		var b = type.viewBounds;
 		var x = rollFloat(0, BG_WIDTH);
