@@ -7,6 +7,7 @@ var RECT_ENEMY_HEIGHT = 120;
 
 exports = {
 	player: {
+		zIndex: 50,
 		isCircle: true,
 		hitBounds: {
 			x: 0,
@@ -23,6 +24,7 @@ exports = {
 		inputMoveMultiplier: 1.5
 	},
 	bullets: {
+		zIndex: 45,
 		isCircle: true,
 		vx: 0,
 		vy: -1.25,
@@ -43,25 +45,8 @@ exports = {
 	enemies: {
 		types: [
 			{
-				id: "enemyCircle",
-				isCircle: true,
-				vx: 0,
-				vy: 0.5,
-				hitBounds: {
-					x: 0,
-					y: 0,
-					r: CIRCLE_ENEMY_SIZE / 2
-				},
-				viewBounds: {
-					x: -CIRCLE_ENEMY_SIZE / 2,
-					y: -CIRCLE_ENEMY_SIZE / 2,
-					w: CIRCLE_ENEMY_SIZE,
-					h: CIRCLE_ENEMY_SIZE
-				},
-				image: "resources/images/shapeCircle.png"
-			},
-			{
 				id: "enemySquare",
+				zIndex: 41,
 				isCircle: false,
 				vx: 0,
 				vy: 0.66,
@@ -80,7 +65,27 @@ exports = {
 				image: "resources/images/shapeRect.png"
 			},
 			{
+				id: "enemyCircle",
+				zIndex: 40,
+				isCircle: true,
+				vx: 0,
+				vy: 0.5,
+				hitBounds: {
+					x: 0,
+					y: 0,
+					r: CIRCLE_ENEMY_SIZE / 2
+				},
+				viewBounds: {
+					x: -CIRCLE_ENEMY_SIZE / 2,
+					y: -CIRCLE_ENEMY_SIZE / 2,
+					w: CIRCLE_ENEMY_SIZE,
+					h: CIRCLE_ENEMY_SIZE
+				},
+				image: "resources/images/shapeCircle.png"
+			},
+			{
 				id: "enemyRect",
+				zIndex: 39,
 				isCircle: false,
 				vx: 0,
 				vy: 0.4,
@@ -101,5 +106,31 @@ exports = {
 		],
 		spawnCooldownMin: 50,
 		spawnCooldownMax: 500
-	}	
+	},
+	parallax: [
+		{
+			id: "bg",
+			zIndex: 1,
+			speedRatio: 0.1,
+			ordered: true,
+			pieceOptions: [
+				{
+					id: "bg1",
+					image: "resources/images/bg1.png"
+				},
+				{
+					id: "bg2",
+					image: "resources/images/bg2.png"
+				},
+				{
+					id: "bg3",
+					image: "resources/images/bg3.png"
+				},
+				{
+					id: "bg4",
+					image: "resources/images/bg4.png"
+				}
+			]
+		}
+	]
 };

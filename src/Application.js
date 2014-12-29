@@ -2,9 +2,11 @@
 import device;
 import ui.View as View;
 import ui.ImageView as ImageView;
+import ui.SpriteView as SpriteView;
 import ui.ParticleEngine as ParticleEngine;
 import entities.Entity as Entity;
 import entities.EntityPool as EntityPool;
+import parallax.Parallax as Parallax;
 
 // game imports
 import src.config as config;
@@ -22,17 +24,14 @@ var rollInt = utils.rollInt;
 // game constants
 var BG_WIDTH = 576;
 var BG_HEIGHT = 1024;
-var PLAYER_WIDTH = config.player.viewBounds.w;
-var PLAYER_HEIGHT = config.player.viewBounds.h;
-var PLAYER_MOVE_MULT = config.player.inputMoveMultiplier;
-
-var app;
 
 /**
  * Application Class
  * ~ automatically instantiated by devkit
  * ~ handles game initialization and loop
+ * ~ the variable 'app' is a reference to the instance of Application
  */
+var app;
 exports = Class(GC.Application, function(supr) {
 	/**
 	 * initUI
@@ -40,35 +39,25 @@ exports = Class(GC.Application, function(supr) {
 	 * ~ initialize view hierarchy and game elements
 	 */
 	this.initUI = function() {
-		var vs = this.view.style;
-
-		// save a reference to the app
 		app = this;
 
 		this.setScreenDimensions(BG_WIDTH > BG_HEIGHT);
 
-		// gameView layer blocks input for faster input handling
+		// gameView layer blocks input for faster player input handling
 		this.gameView = new View({
 			parent: this.view,
-			width: vs.width,
-			height: vs.height,
-			canHandleEvents: false,
+			width: this.view.style.width,
+			height: this.view.style.height,
 			blockEvents: true
 		});
-
-		this.background = new ImageView({
-			parent: this.gameView,
-			x: (vs.width - BG_WIDTH) / 2,
-			y: (vs.height - BG_HEIGHT) / 2,
-			width: BG_WIDTH,
-			height: BG_HEIGHT,
-			image: "resources/images/bg.png"
-		});
-
 		this.player = new Player({ parent: this.gameView });
+		this.parallax = new Parallax({ parent: this.gameView });
 		this.bullets = new Bullets({ parent: this.gameView });
 		this.enemies = new Enemies({ parent: this.gameView });
-		this.particles = new ParticleEngine({ parent: this.gameView });
+		this.particles = new ParticleEngine({
+			parent: this.gameView,
+			zIndex: 60
+		});
 
 		// input is on a separate layer to avoid traversing game elements
 		this.input = new InputView({ parent: this.view });
@@ -76,8 +65,7 @@ exports = Class(GC.Application, function(supr) {
 
 	/**
 	 * launchUI
-	 * ~ called automatically by devkit
-	 * ~ starts the game
+	 * ~ called automatically by devkit when its engine is ready
 	 */
 	this.launchUI = function() {
 		this.reset();
@@ -104,6 +92,7 @@ exports = Class(GC.Application, function(supr) {
 		this.gameOver = false;
 
 		this.player.reset();
+		this.parallax.reset(config.parallax);
 		this.bullets.reset();
 		this.enemies.reset();
 		this.input.reset();
@@ -118,6 +107,7 @@ exports = Class(GC.Application, function(supr) {
 	this.tick = function(dt) {
 		// update entities
 		this.player.update(dt);
+		this.parallax.update(0, 0);
 		this.bullets.update(dt);
 		this.enemies.update(dt);
 
@@ -153,44 +143,8 @@ exports = Class(GC.Application, function(supr) {
  * ~ defines a unique look for the player view
  * ~ used by the Player Class
  */
-var PlayerView = Class(View, function() {
-	var sup = View.prototype;
-
-	this.init = function(opts) {
-		sup.init.call(this, opts);
-
-		this.outerCircle = new ImageView({
-			parent: this,
-			width: PLAYER_WIDTH,
-			height: PLAYER_HEIGHT,
-			image: config.player.image,
-			compositeOperation: "lighter"
-		});
-
-		this.middleCircle = new ImageView({
-			parent: this.outerCircle,
-			r: PI / 3,
-			anchorX: PLAYER_WIDTH / 2,
-			anchorY: PLAYER_HEIGHT / 2,
-			width: PLAYER_WIDTH,
-			height: PLAYER_HEIGHT,
-			scale: 0.875,
-			image: config.player.image,
-			compositeOperation: "lighter"
-		});
-
-		this.innerCircle = new ImageView({
-			parent: this.outerCircle,
-			r: PI / 2,
-			anchorX: PLAYER_WIDTH / 2,
-			anchorY: PLAYER_HEIGHT / 2,
-			width: PLAYER_WIDTH,
-			height: PLAYER_HEIGHT,
-			scale: 0.5,
-			image: config.player.image,
-			compositeOperation: "lighter"
-		});
-	};
+var PlayerView = Class(SpriteView, function() {
+	var sup = SpriteView.prototype;
 });
 
 
@@ -199,6 +153,7 @@ var PlayerView = Class(View, function() {
  */
 var Player = Class(Entity, function() {
 	var sup = Entity.prototype;
+	var PLAYER_MOVE_MULT = config.player.inputMoveMultiplier;
 	this.name = "Player";
 	this.viewClass = PlayerView;
 
@@ -213,7 +168,7 @@ var Player = Class(Entity, function() {
 		var superview = this.view.getSuperview();
 		var s = superview.style;
 		var x = s.width / 2;
-		var y = s.height - 1.5 * PLAYER_HEIGHT;
+		var y = s.height - 150;
 		sup.reset.call(this, x, y, config.player);
 	};
 
