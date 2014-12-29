@@ -100,6 +100,6 @@ exports = {
 			}
 		],
 		spawnCooldownMin: 50,
-		spawnCooldownMax: 350
+		spawnCooldownMax: 500
 	}	
 };
