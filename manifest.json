@@ -1,0 +1,47 @@
+{
+  "addons": {},
+  "android": {
+    "icons": {
+      "114": "resources/icons/ios114.png",
+      "144": "resources/icons/ios144.png",
+      "36": "resources/icons/android36.png",
+      "48": "resources/icons/android48.png",
+      "57": "resources/icons/ios57.png",
+      "72": "resources/icons/android72.png",
+      "96": "resources/icons/android96.png"
+    },
+    "versionCode": 1
+  },
+  "appID": "17ecdd20a3c84db68f8c79050a9acf8c",
+  "dependencies": {
+    "devkit-core": "https://github.com/gameclosure/devkit-core#v2.0.13",
+    "devkit-entities": "https://github.com/gameclosure/devkit-entities#v0.2.1",
+    "devkit-parallax": "https://github.com/gameclosure/devkit-parallax#v0.1.0"
+  },
+  "ios": {
+    "icons": {
+      "114": "resources/icons/ios114.png",
+      "144": "resources/icons/ios144.png",
+      "36": "resources/icons/android36.png",
+      "48": "resources/icons/android48.png",
+      "57": "resources/icons/ios57.png",
+      "72": "resources/icons/android72.png",
+      "96": "resources/icons/android96.png"
+    },
+    "versionCode": 1
+  },
+  "shortName": "spacedemo",
+  "splash": {
+    "autoHide": true,
+    "universal": "resources/splash/splash.png"
+  },
+  "studio": {
+    "domain": "gameclosure.com",
+    "name": "Game Closure"
+  },
+  "supportedOrientations": [
+    "portrait"
+  ],
+  "title": "Space Demo",
+  "version": "1.0.0"
+}
