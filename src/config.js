@@ -20,7 +20,7 @@ exports = {
 			h: PLAYER_SIZE
 		},
 		image: "resources/images/shapeCircle.png",
-		inputMoveMultiplier: 2
+		inputMoveMultiplier: 1.5
 	},
 	bullets: {
 		isCircle: true,
@@ -99,7 +99,7 @@ exports = {
 				image: "resources/images/shapeRect.png"
 			}
 		],
-		spawnCooldownMin: 75,
-		spawnCooldownMax: 225
+		spawnCooldownMin: 50,
+		spawnCooldownMax: 350
 	}	
 };
