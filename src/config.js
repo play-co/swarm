@@ -144,6 +144,88 @@ exports = {
 					image: "resources/images/bg4.png"
 				}
 			]
+		},
+		{
+			id: "farClouds",
+			zIndex: 2,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.2,
+			yCanSpawn: true,
+			yCanRelease: true,
+			yGapRange: [256, 768],
+			pieceOptions: [
+				{
+					id: "farCloudstream1",
+					opacity: 0.125,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream1.png"
+				},
+				{
+					id: "farCloudstream2",
+					opacity: 0.125,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream2.png"
+				},
+				{
+					id: "farCloudstreamFlip1",
+					flipX: true,
+					opacity: 0.125,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream1.png"
+				},
+				{
+					id: "farCloudstreamFlip2",
+					flipX: true,
+					opacity: 0.125,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream2.png"
+				}
+			]
+		},
+		{
+			id: "midClouds",
+			zIndex: 3,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.4,
+			yCanSpawn: true,
+			yCanRelease: true,
+			yGapRange: [512, 1536],
+			pieceOptions: [
+				{
+					id: "midCloudstream1",
+					styleRanges: { scale: [1.5, 3] },
+					opacity: 0.175,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream1.png"
+				},
+				{
+					id: "midCloudstream2",
+					styleRanges: { scale: [1.5, 3] },
+					opacity: 0.175,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream2.png"
+				},
+				{
+					id: "midCloudstreamFlip1",
+					flipX: true,
+					styleRanges: { scale: [1.5, 3] },
+					opacity: 0.175,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream1.png"
+				},
+				{
+					id: "midCloudstreamFlip2",
+					flipX: true,
+					styleRanges: { scale: [1.5, 3] },
+					opacity: 0.175,
+					compositeOperation: "lighter",
+					image: "resources/images/bgStream2.png"
+				}
+			]
 		}
 	],
 	scoreView: {
