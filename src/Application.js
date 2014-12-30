@@ -16,6 +16,7 @@ import src.utils as utils;
 
 // math and utils shortcut references
 var PI = Math.PI;
+var abs = Math.abs;
 var min = Math.min;
 var max = Math.max;
 var choose = utils.choose;
@@ -45,15 +46,14 @@ exports = Class(GC.Application, function(supr) {
 		this.setScreenDimensions(BG_WIDTH > BG_HEIGHT);
 
 		// accepts and interprets player input
-		this.inputLayer = new InputView({
-			parent: this.view
-		});
+		this.inputLayer = new InputView({ parent: this.view });
 
 		// blocks player input to avoid traversing game elements' view hierarchy
 		this.bgLayer = new View({
 			parent: this.view,
-			width: this.view.style.width,
-			height: this.view.style.height,
+			y: this.view.style.height - BG_HEIGHT,
+			width: BG_WIDTH,
+			height: BG_HEIGHT,
 			blockEvents: true
 		});
 
@@ -176,11 +176,13 @@ var Player = Class(Entity, function() {
 	this.init = function(opts) {
 		sup.init.call(this, opts);
 		this.inputStartX = 0;
+		this.animating = false;
 	};
 
 	this.reset = function() {
 		sup.reset.call(this, OFF_X, OFF_Y, config.player);
 		this.view.resetAllAnimations(config.player);
+		this.animating = false;
 	};
 
 	this.startInput = function() {
@@ -188,8 +190,29 @@ var Player = Class(Entity, function() {
 	};
 
 	this.updateInput = function(dx, dy) {
+		var x = this.x;
 		dx *= PLAYER_MOVE_MULT;
 		this.x = max(0, min(BG_WIDTH, this.inputStartX + dx));
+
+		// player animations based on horizontal movement
+		var mx = this.x - x;
+		var animName = '';
+		if (abs(mx) > 24) {
+			animName = 'roll';
+		} else if (mx < -12) {
+			animName = 'bank';
+			this.view.style.flipX = false;
+		} else if (mx > 12) {
+			animName = 'bank';
+			this.view.style.flipX = true;
+		}
+
+		if (animName && !this.animating) {
+			this.animating = true;
+			this.view.startAnimation(animName, {
+				callback: bind(this, function() { this.animating = false; })
+			});
+		}
 	};
 
 	this.onDeath = function() {
