@@ -1,6 +1,6 @@
 var BG_WIDTH = 576;
 var BG_HEIGHT = 1024;
-var PLAYER_SIZE = 112;
+var PLAYER_SIZE = 96;
 var BULLET_SIZE = 28;
 var CIRCLE_ENEMY_SIZE = 80;
 var SQUARE_ENEMY_SIZE = 100;
@@ -11,6 +11,10 @@ exports = {
 	bgWidth: BG_WIDTH,
 	bgHeight: BG_HEIGHT,
 	player: {
+		url: "resources/images/player",
+		defaultAnimation: "fly",
+		autoStart: true,
+		loop: true,
 		zIndex: 50,
 		isCircle: true,
 		vx: 0,
@@ -26,7 +30,6 @@ exports = {
 			w: PLAYER_SIZE,
 			h: PLAYER_SIZE
 		},
-		image: "resources/images/shapeCircle.png",
 		inputMoveMultiplier: 1.5,
 		offsetX: BG_WIDTH / 2,
 		offsetY: BG_HEIGHT - 1.5 * PLAYER_SIZE
@@ -154,16 +157,18 @@ exports = {
 			yMultiplier: 0.2,
 			yCanSpawn: true,
 			yCanRelease: true,
-			yGapRange: [256, 768],
+			yGapRange: [200, 500],
 			pieceOptions: [
 				{
 					id: "farCloudstream1",
+					styleRanges: { scale: [1, 2] },
 					opacity: 0.125,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream1.png"
 				},
 				{
 					id: "farCloudstream2",
+					styleRanges: { scale: [1, 2] },
 					opacity: 0.125,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream2.png"
@@ -171,6 +176,7 @@ exports = {
 				{
 					id: "farCloudstreamFlip1",
 					flipX: true,
+					styleRanges: { scale: [1, 2] },
 					opacity: 0.125,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream1.png"
@@ -178,6 +184,7 @@ exports = {
 				{
 					id: "farCloudstreamFlip2",
 					flipX: true,
+					styleRanges: { scale: [1, 2] },
 					opacity: 0.125,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream2.png"
@@ -193,18 +200,18 @@ exports = {
 			yMultiplier: 0.4,
 			yCanSpawn: true,
 			yCanRelease: true,
-			yGapRange: [512, 1536],
+			yGapRange: [400, 1000],
 			pieceOptions: [
 				{
 					id: "midCloudstream1",
-					styleRanges: { scale: [1.5, 3] },
+					styleRanges: { scale: [2, 4] },
 					opacity: 0.175,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream1.png"
 				},
 				{
 					id: "midCloudstream2",
-					styleRanges: { scale: [1.5, 3] },
+					styleRanges: { scale: [2, 4] },
 					opacity: 0.175,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream2.png"
@@ -212,7 +219,7 @@ exports = {
 				{
 					id: "midCloudstreamFlip1",
 					flipX: true,
-					styleRanges: { scale: [1.5, 3] },
+					styleRanges: { scale: [2, 4] },
 					opacity: 0.175,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream1.png"
@@ -220,7 +227,7 @@ exports = {
 				{
 					id: "midCloudstreamFlip2",
 					flipX: true,
-					styleRanges: { scale: [1.5, 3] },
+					styleRanges: { scale: [2, 4] },
 					opacity: 0.175,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream2.png"

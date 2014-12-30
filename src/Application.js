@@ -163,16 +163,6 @@ exports = Class(GC.Application, function(supr) {
 
 
 /**
- * PlayerView Class
- * ~ defines a unique look for the player view
- * ~ used by the Player Class
- */
-var PlayerView = Class(SpriteView, function() {
-	var sup = SpriteView.prototype;
-});
-
-
-/**
  * Player Class
  */
 var Player = Class(Entity, function() {
@@ -181,7 +171,7 @@ var Player = Class(Entity, function() {
 	var OFF_Y = config.player.offsetY;
 	var PLAYER_MOVE_MULT = config.player.inputMoveMultiplier;
 	this.name = "Player";
-	this.viewClass = PlayerView;
+	this.viewClass = SpriteView;
 
 	this.init = function(opts) {
 		sup.init.call(this, opts);
@@ -190,6 +180,7 @@ var Player = Class(Entity, function() {
 
 	this.reset = function() {
 		sup.reset.call(this, OFF_X, OFF_Y, config.player);
+		this.view.resetAllAnimations(config.player);
 	};
 
 	this.startInput = function() {
