@@ -3,6 +3,7 @@ import device;
 import ui.View as View;
 import ui.ImageView as ImageView;
 import ui.SpriteView as SpriteView;
+import ui.ScoreView as ScoreView;
 import ui.ParticleEngine as ParticleEngine;
 import entities.Entity as Entity;
 import entities.EntityPool as EntityPool;
@@ -56,6 +57,9 @@ exports = Class(GC.Application, function(supr) {
 			blockEvents: true
 		});
 
+		// display player's score
+		this.scoreView = new ScoreView(merge({ parent: this.view }, config.scoreView));
+
 		// game background parallax
 		this.parallax = new Parallax({ parent: this.bgLayer });
 
@@ -102,6 +106,7 @@ exports = Class(GC.Application, function(supr) {
 	this.reset = function(data) {
 		this.score = 0;
 		this.gameOver = false;
+		this.scoreView.setText(this.score);
 
 		this.elementLayer.style.y = 0;
 		this.player.reset();
@@ -142,6 +147,8 @@ exports = Class(GC.Application, function(supr) {
 		effects.emitExplosion(this.particles, enemy);
 		enemy.release();
 		bullet.release();
+		this.score++;
+		this.scoreView.setText(this.score);
 	};
 
 	this.onGameOver = function() {

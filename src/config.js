@@ -145,5 +145,27 @@ exports = {
 				}
 			]
 		}
-	]
+	],
+	scoreView: {
+		x: 8,
+		y: 4,
+		width: 200,
+		height: 75,
+		text: "0",
+		horizontalAlign: "left",
+		spacing: 0,
+		characterData: {
+			"0": { image: "resources/images/blue_0.png" },
+			"1": { image: "resources/images/blue_1.png" },
+			"2": { image: "resources/images/blue_2.png" },
+			"3": { image: "resources/images/blue_3.png" },
+			"4": { image: "resources/images/blue_4.png" },
+			"5": { image: "resources/images/blue_5.png" },
+			"6": { image: "resources/images/blue_6.png" },
+			"7": { image: "resources/images/blue_7.png" },
+			"8": { image: "resources/images/blue_8.png" },
+			"9": { image: "resources/images/blue_9.png" }
+		},
+		compositeOperation: "lighter"
+	}
 };
