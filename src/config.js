@@ -1,3 +1,5 @@
+var BG_WIDTH = 576;
+var BG_HEIGHT = 1024;
 var PLAYER_SIZE = 112;
 var BULLET_SIZE = 28;
 var CIRCLE_ENEMY_SIZE = 80;
@@ -6,9 +8,13 @@ var RECT_ENEMY_WIDTH = 30;
 var RECT_ENEMY_HEIGHT = 120;
 
 exports = {
+	bgWidth: BG_WIDTH,
+	bgHeight: BG_HEIGHT,
 	player: {
 		zIndex: 50,
 		isCircle: true,
+		vx: 0,
+		vy: -0.25,
 		hitBounds: {
 			x: 0,
 			y: 0,
@@ -21,13 +27,15 @@ exports = {
 			h: PLAYER_SIZE
 		},
 		image: "resources/images/shapeCircle.png",
-		inputMoveMultiplier: 1.5
+		inputMoveMultiplier: 1.5,
+		offsetX: BG_WIDTH / 2,
+		offsetY: BG_HEIGHT - 1.5 * PLAYER_SIZE
 	},
 	bullets: {
 		zIndex: 45,
 		isCircle: true,
 		vx: 0,
-		vy: -1.25,
+		vy: -1.5,
 		hitBounds: {
 			x: 0,
 			y: 0,
@@ -49,7 +57,7 @@ exports = {
 				zIndex: 41,
 				isCircle: false,
 				vx: 0,
-				vy: 0.66,
+				vy: 0.35,
 				hitBounds: {
 					x: -SQUARE_ENEMY_SIZE / 2,
 					y: -SQUARE_ENEMY_SIZE / 2,
@@ -69,7 +77,7 @@ exports = {
 				zIndex: 40,
 				isCircle: true,
 				vx: 0,
-				vy: 0.5,
+				vy: 0.25,
 				hitBounds: {
 					x: 0,
 					y: 0,
@@ -88,7 +96,7 @@ exports = {
 				zIndex: 39,
 				isCircle: false,
 				vx: 0,
-				vy: 0.4,
+				vy: 0.15,
 				hitBounds: {
 					x: -RECT_ENEMY_WIDTH / 2,
 					y: -RECT_ENEMY_HEIGHT / 2,
@@ -111,7 +119,12 @@ exports = {
 		{
 			id: "bg",
 			zIndex: 1,
-			speedRatio: 0.1,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.125,
+			yCanSpawn: true,
+			yCanRelease: true,
 			ordered: true,
 			pieceOptions: [
 				{

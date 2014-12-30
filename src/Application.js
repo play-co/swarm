@@ -22,8 +22,8 @@ var rollFloat = utils.rollFloat;
 var rollInt = utils.rollInt;
 
 // game constants
-var BG_WIDTH = 576;
-var BG_HEIGHT = 1024;
+var BG_WIDTH = config.bgWidth;
+var BG_HEIGHT = config.bgHeight;
 
 /**
  * Application Class
@@ -43,24 +43,36 @@ exports = Class(GC.Application, function(supr) {
 
 		this.setScreenDimensions(BG_WIDTH > BG_HEIGHT);
 
-		// gameView layer blocks input for faster player input handling
-		this.gameView = new View({
+		// accepts and interprets player input
+		this.inputLayer = new InputView({
+			parent: this.view
+		});
+
+		// blocks player input to avoid traversing game elements' view hierarchy
+		this.bgLayer = new View({
 			parent: this.view,
 			width: this.view.style.width,
 			height: this.view.style.height,
 			blockEvents: true
 		});
-		this.player = new Player({ parent: this.gameView });
-		this.parallax = new Parallax({ parent: this.gameView });
-		this.bullets = new Bullets({ parent: this.gameView });
-		this.enemies = new Enemies({ parent: this.gameView });
-		this.particles = new ParticleEngine({
-			parent: this.gameView,
-			zIndex: 60
+
+		// game background parallax
+		this.parallax = new Parallax({ parent: this.bgLayer });
+
+		// scrolling layer relative to player
+		this.elementLayer = new View({
+			parent: this.bgLayer,
+			zIndex: 10
 		});
 
-		// input is on a separate layer to avoid traversing game elements
-		this.input = new InputView({ parent: this.view });
+		// game elements
+		this.player = new Player({ parent: this.elementLayer });
+		this.bullets = new Bullets({ parent: this.elementLayer });
+		this.enemies = new Enemies({ parent: this.elementLayer });
+		this.particles = new ParticleEngine({
+			parent: this.elementLayer,
+			zIndex: 60
+		});
 	};
 
 	/**
@@ -91,11 +103,12 @@ exports = Class(GC.Application, function(supr) {
 		this.score = 0;
 		this.gameOver = false;
 
+		this.elementLayer.style.y = 0;
 		this.player.reset();
 		this.parallax.reset(config.parallax);
 		this.bullets.reset();
 		this.enemies.reset();
-		this.input.reset();
+		this.inputLayer.reset();
 		this.particles.killAllParticles();
 	};
 
@@ -107,9 +120,13 @@ exports = Class(GC.Application, function(supr) {
 	this.tick = function(dt) {
 		// update entities
 		this.player.update(dt);
-		this.parallax.update(0, 0);
 		this.bullets.update(dt);
 		this.enemies.update(dt);
+
+		// players vertical movement determines view offset for everything
+		var screenOffsetY = -this.player.getScreenY();
+		this.elementLayer.style.y = screenOffsetY;
+		this.parallax.update(0, screenOffsetY);
 
 		// collide bullets with enemies
 		this.bullets.onFirstPoolCollisions(this.enemies, this.onBulletHit, this);
@@ -153,39 +170,36 @@ var PlayerView = Class(SpriteView, function() {
  */
 var Player = Class(Entity, function() {
 	var sup = Entity.prototype;
+	var OFF_X = config.player.offsetX;
+	var OFF_Y = config.player.offsetY;
 	var PLAYER_MOVE_MULT = config.player.inputMoveMultiplier;
 	this.name = "Player";
 	this.viewClass = PlayerView;
 
 	this.init = function(opts) {
 		sup.init.call(this, opts);
-
 		this.inputStartX = 0;
-		this.inputStartY = 0;
 	};
 
 	this.reset = function() {
-		var superview = this.view.getSuperview();
-		var s = superview.style;
-		var x = s.width / 2;
-		var y = s.height - 150;
-		sup.reset.call(this, x, y, config.player);
+		sup.reset.call(this, OFF_X, OFF_Y, config.player);
 	};
 
 	this.startInput = function() {
 		this.inputStartX = this.x;
-		this.inputStartY = this.y;
 	};
 
 	this.updateInput = function(dx, dy) {
 		dx *= PLAYER_MOVE_MULT;
-		dy *= PLAYER_MOVE_MULT;
 		this.x = max(0, min(BG_WIDTH, this.inputStartX + dx));
-		this.y = max(0, min(BG_HEIGHT, this.inputStartY + dy));
 	};
 
 	this.onDeath = function() {
 		this.view.style.visible = false;
+	};
+
+	this.getScreenY = function() {
+		return this.y - OFF_Y;
 	};
 });
 
@@ -206,7 +220,7 @@ var Bullet = Class(Entity, function() {
 	this.update = function(dt) {
 		sup.update.call(this, dt);
 		var b = this.viewBounds;
-		if (this.y + b.y + b.h < 0) {
+		if (this.y + b.y + b.h < app.player.getScreenY()) {
 			this.release();
 		}
 	};
@@ -261,7 +275,7 @@ var Enemy = Class(Entity, function() {
 	this.update = function(dt) {
 		sup.update.call(this, dt);
 		var b = this.viewBounds;
-		if (this.y + b.y > BG_HEIGHT) {
+		if (this.y + b.y > app.player.getScreenY() + BG_HEIGHT) {
 			this.release();
 		}
 	};
@@ -305,7 +319,7 @@ var Enemies = Class(EntityPool, function() {
 		var type = choose(config.enemies.types);
 		var b = type.viewBounds;
 		var x = rollFloat(0, BG_WIDTH);
-		var y = -(b.y + b.h);
+		var y = -(b.y + b.h) + app.player.getScreenY();
 		var enemy = this.obtain(x, y, type);
 	};
 });
@@ -343,7 +357,7 @@ var InputView = Class(View, function() {
 		}
 
 		var startPt = this.startPt;
-		var scale = 1 / app.gameView.style.scale;
+		var scale = 1 / app.bgLayer.style.scale;
 		var dx = scale * (pt.x - startPt.x);
 		var dy = scale * (pt.y - startPt.y);
 		app.player.updateInput(dx, dy);
