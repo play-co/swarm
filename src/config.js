@@ -2,10 +2,10 @@ var BG_WIDTH = 576;
 var BG_HEIGHT = 1024;
 var PLAYER_SIZE = 96;
 var BULLET_SIZE = 28;
-var CIRCLE_ENEMY_SIZE = 80;
-var SQUARE_ENEMY_SIZE = 100;
-var RECT_ENEMY_WIDTH = 30;
-var RECT_ENEMY_HEIGHT = 120;
+var ENEMY_MINE_SIZE = 80;
+var ENEMY_DRONE_SIZE = 112;
+var ENEMY_DEBRIS_WIDTH = 36;
+var ENEMY_DEBRIS_HEIGHT = 168;
 
 exports = {
 	bgWidth: BG_WIDTH,
@@ -62,18 +62,18 @@ exports = {
 				vx: 0,
 				vy: 0.35,
 				hitBounds: {
-					x: -SQUARE_ENEMY_SIZE / 2,
-					y: -SQUARE_ENEMY_SIZE / 2,
-					w: SQUARE_ENEMY_SIZE,
-					h: SQUARE_ENEMY_SIZE
+					x: -ENEMY_DRONE_SIZE / 2,
+					y: -ENEMY_DRONE_SIZE / 2,
+					w: ENEMY_DRONE_SIZE,
+					h: ENEMY_DRONE_SIZE
 				},
 				viewBounds: {
-					x: -SQUARE_ENEMY_SIZE / 2,
-					y: -SQUARE_ENEMY_SIZE / 2,
-					w: SQUARE_ENEMY_SIZE,
-					h: SQUARE_ENEMY_SIZE
+					x: -ENEMY_DRONE_SIZE / 2,
+					y: -ENEMY_DRONE_SIZE / 2,
+					w: ENEMY_DRONE_SIZE,
+					h: ENEMY_DRONE_SIZE
 				},
-				image: "resources/images/shapeRect.png"
+				image: "resources/images/enemyDrone.png"
 			},
 			{
 				id: "enemyCircle",
@@ -84,15 +84,15 @@ exports = {
 				hitBounds: {
 					x: 0,
 					y: 0,
-					r: CIRCLE_ENEMY_SIZE / 2
+					r: ENEMY_MINE_SIZE / 2
 				},
 				viewBounds: {
-					x: -CIRCLE_ENEMY_SIZE / 2,
-					y: -CIRCLE_ENEMY_SIZE / 2,
-					w: CIRCLE_ENEMY_SIZE,
-					h: CIRCLE_ENEMY_SIZE
+					x: -ENEMY_MINE_SIZE / 2,
+					y: -ENEMY_MINE_SIZE / 2,
+					w: ENEMY_MINE_SIZE,
+					h: ENEMY_MINE_SIZE
 				},
-				image: "resources/images/shapeCircle.png"
+				image: "resources/images/enemyMine.png"
 			},
 			{
 				id: "enemyRect",
@@ -101,18 +101,18 @@ exports = {
 				vx: 0,
 				vy: 0.15,
 				hitBounds: {
-					x: -RECT_ENEMY_WIDTH / 2,
-					y: -RECT_ENEMY_HEIGHT / 2,
-					w: RECT_ENEMY_WIDTH,
-					h: RECT_ENEMY_HEIGHT
+					x: -ENEMY_DEBRIS_WIDTH / 2,
+					y: -ENEMY_DEBRIS_HEIGHT / 2,
+					w: ENEMY_DEBRIS_WIDTH,
+					h: ENEMY_DEBRIS_HEIGHT
 				},
 				viewBounds: {
-					x: -RECT_ENEMY_WIDTH / 2,
-					y: -RECT_ENEMY_HEIGHT / 2,
-					w: RECT_ENEMY_WIDTH,
-					h: RECT_ENEMY_HEIGHT
+					x: -ENEMY_DEBRIS_WIDTH / 2,
+					y: -ENEMY_DEBRIS_HEIGHT / 2,
+					w: ENEMY_DEBRIS_WIDTH,
+					h: ENEMY_DEBRIS_HEIGHT
 				},
-				image: "resources/images/shapeRect.png"
+				image: "resources/images/enemyDebris.png"
 			}
 		],
 		spawnCooldownMin: 50,
@@ -231,6 +231,133 @@ exports = {
 					opacity: 0.175,
 					compositeOperation: "lighter",
 					image: "resources/images/bgStream2.png"
+				}
+			]
+		},
+		{
+			id: "debrisFar",
+			zIndex: 4,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.6,
+			yCanSpawn: true,
+			yCanRelease: true,
+			pieceOptions: [
+				{
+					id: "debrisFar1",
+					image: "resources/images/bgFarDebris1.png"
+				},
+				{
+					id: "debrisFar2",
+					image: "resources/images/bgFarDebris2.png"
+				},
+				{
+					id: "debrisFar3",
+					image: "resources/images/bgFarDebris3.png"
+				},
+				{
+					id: "debrisFar4",
+					image: "resources/images/bgFarDebris4.png"
+				},
+				{
+					id: "debrisFar5",
+					image: "resources/images/bgFarDebris5.png"
+				},
+				{
+					id: "debrisFar6",
+					flipX: true,
+					image: "resources/images/bgFarDebris1.png"
+				},
+				{
+					id: "debrisFar7",
+					flipX: true,
+					image: "resources/images/bgFarDebris2.png"
+				},
+				{
+					id: "debrisFar8",
+					flipX: true,
+					image: "resources/images/bgFarDebris3.png"
+				},
+				{
+					id: "debrisFar9",
+					flipX: true,
+					image: "resources/images/bgFarDebris4.png"
+				},
+				{
+					id: "debrisFar10",
+					flipX: true,
+					image: "resources/images/bgFarDebris5.png"
+				}
+			]
+		},
+		{
+			id: "debrisLeft",
+			zIndex: 5,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.8,
+			yCanSpawn: true,
+			yCanRelease: true,
+			yGapRange: [0, 250],
+			pieceOptions: [
+				{
+					id: "debrisLeft1",
+					image: "resources/images/bgDebris1.png"
+				},
+				{
+					id: "debrisLeft2",
+					image: "resources/images/bgDebris2.png"
+				},
+				{
+					id: "debrisLeft3",
+					image: "resources/images/bgDebris3.png"
+				},
+				{
+					id: "debrisLeft4",
+					image: "resources/images/bgDebris4.png"
+				}
+			]
+		},
+		{
+			id: "debrisRight",
+			zIndex: 5,
+			xMultiplier: 0,
+			xCanSpawn: false,
+			xCanRelease: false,
+			yMultiplier: 0.8,
+			yCanSpawn: true,
+			yCanRelease: true,
+			yGapRange: [0, 250],
+			pieceOptions: [
+				{
+					id: "debrisRight1",
+					x: BG_WIDTH,
+					xAlign: "right",
+					flipX: true,
+					image: "resources/images/bgDebris1.png"
+				},
+				{
+					id: "debrisRight2",
+					x: BG_WIDTH,
+					xAlign: "right",
+					flipX: true,
+					image: "resources/images/bgDebris2.png"
+				},
+				{
+					id: "debrisRight3",
+					x: BG_WIDTH,
+					xAlign: "right",
+					flipX: true,
+					image: "resources/images/bgDebris3.png"
+				},
+				{
+					id: "debrisRight4",
+					x: BG_WIDTH,
+					xAlign: "right",
+					flipX: true,
+					image: "resources/images/bgDebris4.png"
 				}
 			]
 		}
