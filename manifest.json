@@ -16,7 +16,7 @@
   "dependencies": {
     "devkit-core": "https://github.com/gameclosure/devkit-core#v2.0.13",
     "devkit-entities": "https://github.com/gameclosure/devkit-entities#v0.2.2",
-    "devkit-parallax": "https://github.com/gameclosure/devkit-parallax#v0.1.1"
+    "devkit-parallax": "https://github.com/gameclosure/devkit-parallax#v0.1.2"
   },
   "ios": {
     "icons": {
