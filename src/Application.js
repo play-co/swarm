@@ -26,6 +26,7 @@ var rollInt = utils.rollInt;
 // game constants
 var BG_WIDTH = config.bgWidth;
 var BG_HEIGHT = config.bgHeight;
+var SHOW_HIT_BOUNDS = false;
 
 /**
  * Application Class
@@ -153,8 +154,8 @@ exports = Class(GC.Application, function(supr) {
 
 	this.onGameOver = function() {
 		if (!this.gameOver) {
-			this.player.onDeath();
 			effects.emitExplosion(this.particles, this.player);
+			this.player.onDeath();
 			this.gameOver = true;
 			setTimeout(bind(this, 'reset'), 2500);
 		}
@@ -170,6 +171,8 @@ var Player = Class(Entity, function() {
 	var OFF_X = config.player.offsetX;
 	var OFF_Y = config.player.offsetY;
 	var PLAYER_MOVE_MULT = config.player.inputMoveMultiplier;
+	var ROLL_MAGNITUDE = config.player.rollMagnitude;
+	var BANK_MAGNITUDE = config.player.bankMagnitude;
 	this.name = "Player";
 	this.viewClass = SpriteView;
 
@@ -183,6 +186,7 @@ var Player = Class(Entity, function() {
 		sup.reset.call(this, OFF_X, OFF_Y, config.player);
 		this.view.resetAllAnimations(config.player);
 		this.animating = false;
+		SHOW_HIT_BOUNDS && this.showHitBounds();
 	};
 
 	this.startInput = function() {
@@ -190,19 +194,18 @@ var Player = Class(Entity, function() {
 	};
 
 	this.updateInput = function(dx, dy) {
-		var x = this.x;
-		dx *= PLAYER_MOVE_MULT;
-		this.x = max(0, min(BG_WIDTH, this.inputStartX + dx));
+		var xPrev = this.x;
+		this.x = max(0, min(BG_WIDTH, this.inputStartX + PLAYER_MOVE_MULT * dx));
 
 		// player animations based on horizontal movement
-		var mx = this.x - x;
+		var mx = this.x - xPrev;
 		var animName = '';
-		if (abs(mx) > 24) {
+		if (abs(mx) > ROLL_MAGNITUDE) {
 			animName = 'roll';
-		} else if (mx < -12) {
+		} else if (mx < -BANK_MAGNITUDE) {
 			animName = 'bank';
 			this.view.style.flipX = false;
-		} else if (mx > 12) {
+		} else if (mx > BANK_MAGNITUDE) {
 			animName = 'bank';
 			this.view.style.flipX = true;
 		}
@@ -281,6 +284,7 @@ var Bullets = Class(EntityPool, function() {
 		var x = app.player.x;
 		var y = app.player.y;
 		var bullet = this.obtain(x, y, config.bullets);
+		SHOW_HIT_BOUNDS && bullet.showHitBounds();
 	};
 });
 
@@ -342,6 +346,7 @@ var Enemies = Class(EntityPool, function() {
 		var x = rollFloat(0, BG_WIDTH);
 		var y = -(b.y + b.h) + app.player.getScreenY();
 		var enemy = this.obtain(x, y, type);
+		SHOW_HIT_BOUNDS && enemy.showHitBounds();
 	};
 });
 

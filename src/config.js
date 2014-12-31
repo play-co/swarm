@@ -21,8 +21,8 @@ exports = {
 		vy: -0.25,
 		hitBounds: {
 			x: 0,
-			y: 0,
-			r: PLAYER_SIZE / 2
+			y: 10,
+			r: PLAYER_SIZE / 3
 		},
 		viewBounds: {
 			x: -PLAYER_SIZE / 2,
@@ -30,9 +30,11 @@ exports = {
 			w: PLAYER_SIZE,
 			h: PLAYER_SIZE
 		},
-		inputMoveMultiplier: 1.5,
 		offsetX: BG_WIDTH / 2,
-		offsetY: BG_HEIGHT - 1.5 * PLAYER_SIZE
+		offsetY: BG_HEIGHT - 1.5 * PLAYER_SIZE,
+		inputMoveMultiplier: 1.5,
+		rollMagnitude: 20,
+		bankMagnitude: 12
 	},
 	bullets: {
 		zIndex: 45,
@@ -56,16 +58,15 @@ exports = {
 	enemies: {
 		types: [
 			{
-				id: "enemySquare",
+				id: "enemyDrone",
 				zIndex: 41,
-				isCircle: false,
+				isCircle: true,
 				vx: 0,
 				vy: 0.35,
 				hitBounds: {
-					x: -ENEMY_DRONE_SIZE / 2,
-					y: -ENEMY_DRONE_SIZE / 2,
-					w: ENEMY_DRONE_SIZE,
-					h: ENEMY_DRONE_SIZE
+					x: 0,
+					y: 0,
+					r: ENEMY_DRONE_SIZE / 2.5
 				},
 				viewBounds: {
 					x: -ENEMY_DRONE_SIZE / 2,
@@ -76,15 +77,15 @@ exports = {
 				image: "resources/images/enemyDrone.png"
 			},
 			{
-				id: "enemyCircle",
+				id: "enemyMine",
 				zIndex: 40,
 				isCircle: true,
 				vx: 0,
 				vy: 0.25,
 				hitBounds: {
 					x: 0,
-					y: 0,
-					r: ENEMY_MINE_SIZE / 2
+					y: 2,
+					r: ENEMY_MINE_SIZE / 3
 				},
 				viewBounds: {
 					x: -ENEMY_MINE_SIZE / 2,
@@ -95,7 +96,7 @@ exports = {
 				image: "resources/images/enemyMine.png"
 			},
 			{
-				id: "enemyRect",
+				id: "enemyDebris",
 				zIndex: 39,
 				isCircle: false,
 				vx: 0,
