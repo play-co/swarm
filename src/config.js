@@ -62,7 +62,7 @@ exports = {
 				zIndex: 41,
 				isCircle: true,
 				vx: 0,
-				vy: 0.35,
+				vy: 0.4,
 				hitBounds: {
 					x: 0,
 					y: 0,
@@ -100,7 +100,7 @@ exports = {
 				zIndex: 39,
 				isCircle: false,
 				vx: 0,
-				vy: 0.15,
+				vy: 0.1,
 				hitBounds: {
 					x: -ENEMY_DEBRIS_WIDTH / 2,
 					y: -ENEMY_DEBRIS_HEIGHT / 2,
