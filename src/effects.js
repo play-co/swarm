@@ -50,7 +50,7 @@ exports.emitExplosion = function(engine, entity) {
 		p.dscale = stop * p.scale;
 		p.ttl = ttl;
 		p.image = choose(SMOKE_IMAGES);
-		p.compositeOperation = "lighter";
+		p.compositeOperation = random() < 0.95 ? "lighter" : "";
 	}
 	engine.emitParticles(data);
 };

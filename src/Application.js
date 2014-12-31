@@ -347,6 +347,9 @@ var Enemies = Class(EntityPool, function() {
 		var y = -(b.y + b.h) + app.player.getScreenY();
 		var enemy = this.obtain(x, y, type);
 		SHOW_HIT_BOUNDS && enemy.showHitBounds();
+
+		// vary enemy speeds
+		enemy.vy = rollFloat(0.75, 1.25) * enemy.vy;
 	};
 });
 
