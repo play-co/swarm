@@ -4,12 +4,13 @@ import ui.resource.loader as loader;
 
 // shortcuts
 var log = Math.log;
+var floor = Math.floor;
 var random = Math.random;
 var resourceMap = loader.getMap();
 
 // return a randomly selected item from an array
 exports.choose = function(arr) {
-	return arr[~~(random() * arr.length)];
+	return arr[floor(random() * arr.length)];
 };
 
 // copy object properties, without copying other objects or arrays
@@ -93,14 +94,14 @@ exports.rollFloat = function(min, max) {
 
 // return a random integer, min <= n <= max
 exports.rollInt = function(min, max) {
-	return ~~(min + random() * (1 + max - min));
+	return floor(min + random() * (1 + max - min));
 };
 
 // shuffle an array
 exports.shuffle = function(a) {
 	var l = a.length;
 	while (l > 0) {
-		var i = ~~(random() * l--);
+		var i = floor(random() * l--);
 		var temp = a[l];
 		a[l] = a[i];
 		a[i] = temp;
