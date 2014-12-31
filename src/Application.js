@@ -349,7 +349,7 @@ var Enemies = Class(EntityPool, function() {
 		SHOW_HIT_BOUNDS && enemy.showHitBounds();
 
 		// vary enemy speeds
-		enemy.vy = rollFloat(0.75, 1.25) * enemy.vy;
+		enemy.vy = rollFloat(0.67, 1.33) * enemy.vy;
 	};
 });
 
