@@ -1,4 +1,5 @@
 // devkit and module imports
+import animate;
 import device;
 import ui.View as View;
 import ui.ImageView as ImageView;
@@ -105,9 +106,13 @@ exports = Class(GC.Application, function(supr) {
 	 * ~ resets all game elements for a new game
 	 */
 	this.reset = function(data) {
-		this.score = 0;
-		this.gameOver = false;
-		this.scoreView.setText(this.score);
+		this.model = {
+			score: 0,
+			timeMult: 1,
+			gameOver: false
+		};
+
+		this.scoreView.setText(this.model.score);
 
 		this.elementLayer.style.y = 0;
 		this.player.reset();
@@ -124,6 +129,9 @@ exports = Class(GC.Application, function(supr) {
 	 * ~ updates all game elements by delta time, dt
 	 */
 	this.tick = function(dt) {
+		// speed up or slow down the passage of time
+		dt = this.model.timeMult * dt;
+
 		// update entities
 		this.player.update(dt);
 		this.bullets.update(dt);
@@ -148,15 +156,22 @@ exports = Class(GC.Application, function(supr) {
 		effects.emitExplosion(this.particles, enemy);
 		enemy.release();
 		bullet.release();
-		this.score++;
-		this.scoreView.setText(this.score);
+		this.model.score++;
+		this.scoreView.setText(this.model.score);
 	};
 
 	this.onGameOver = function() {
-		if (!this.gameOver) {
+		if (!this.model.gameOver) {
+			// slow motion on game over
+			this.model.timeMult = 0.02;
+			animate(this.model).now({ timeMult: 0.2 }, 2500, animate.easeOut);
+			// special effects on player death
 			effects.emitExplosion(this.particles, this.player);
+			effects.emitEpicExplosion(this.particles, this.player);
+			effects.shakeScreen(this.view);
 			this.player.onDeath();
-			this.gameOver = true;
+			this.model.gameOver = true;
+			// reset the game after 2.5 seconds
 			setTimeout(bind(this, 'reset'), 2500);
 		}
 	};
@@ -280,7 +295,7 @@ var Bullets = Class(EntityPool, function() {
 	};
 
 	this.spawnBullet = function() {
-		if (app.gameOver) { return; }
+		if (app.model.gameOver) { return; }
 		var x = app.player.x;
 		var y = app.player.y;
 		var bullet = this.obtain(x, y, config.bullets);

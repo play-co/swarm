@@ -1,7 +1,8 @@
 var BG_WIDTH = 576;
 var BG_HEIGHT = 1024;
 var PLAYER_SIZE = 96;
-var BULLET_SIZE = 28;
+var BULLET_WIDTH = 28;
+var BULLET_HEIGHT = 72;
 var ENEMY_MINE_SIZE = 80;
 var ENEMY_DRONE_SIZE = 112;
 var ENEMY_DEBRIS_WIDTH = 36;
@@ -38,22 +39,23 @@ exports = {
 	},
 	bullets: {
 		zIndex: 45,
-		isCircle: true,
+		isCircle: false,
 		vx: 0,
-		vy: -1.5,
+		vy: -2,
 		hitBounds: {
-			x: 0,
-			y: 0,
-			r: BULLET_SIZE / 2
+			x: -BULLET_WIDTH / 4,
+			y: -BULLET_HEIGHT / 4,
+			w: BULLET_WIDTH / 2,
+			h: BULLET_HEIGHT / 2
 		},
 		viewBounds: {
-			x: -BULLET_SIZE / 2,
-			y: -BULLET_SIZE / 2,
-			w: BULLET_SIZE,
-			h: BULLET_SIZE
+			x: -BULLET_WIDTH / 2,
+			y: -BULLET_HEIGHT / 2,
+			w: BULLET_WIDTH,
+			h: BULLET_HEIGHT
 		},
-		image: "resources/images/shapeCircle.png",
-		spawnCooldown: 100
+		image: "resources/images/laser.png",
+		spawnCooldown: 80
 	},
 	enemies: {
 		types: [
