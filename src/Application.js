@@ -25,6 +25,7 @@ var rollFloat = utils.rollFloat;
 var rollInt = utils.rollInt;
 
 // game constants
+var MAX_TICK = config.maxTick;
 var BG_WIDTH = config.bgWidth;
 var BG_HEIGHT = config.bgHeight;
 var SHOW_HIT_BOUNDS = false;
@@ -130,7 +131,7 @@ exports = Class(GC.Application, function(supr) {
 	 */
 	this.tick = function(dt) {
 		// speed up or slow down the passage of time
-		dt = this.model.timeMult * dt;
+		dt = min(this.model.timeMult * dt, MAX_TICK);
 
 		// update entities
 		this.player.update(dt);

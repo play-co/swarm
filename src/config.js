@@ -9,6 +9,7 @@ var ENEMY_DEBRIS_WIDTH = 36;
 var ENEMY_DEBRIS_HEIGHT = 168;
 
 exports = {
+	maxTick: 100,
 	bgWidth: BG_WIDTH,
 	bgHeight: BG_HEIGHT,
 	player: {
