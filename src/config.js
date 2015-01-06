@@ -12,6 +12,7 @@ exports = {
 	maxTick: 100,
 	bgWidth: BG_WIDTH,
 	bgHeight: BG_HEIGHT,
+	gameOverDelay: 4000,
 	player: {
 		url: "resources/images/player",
 		defaultAnimation: "fly",

@@ -28,6 +28,7 @@ var rollInt = utils.rollInt;
 var MAX_TICK = config.maxTick;
 var BG_WIDTH = config.bgWidth;
 var BG_HEIGHT = config.bgHeight;
+var GAME_OVER_DELAY = config.gameOverDelay;
 var SHOW_HIT_BOUNDS = false;
 
 /**
@@ -165,7 +166,7 @@ exports = Class(GC.Application, function(supr) {
 		if (!this.model.gameOver) {
 			// slow motion on game over
 			this.model.timeMult = 0.02;
-			animate(this.model).now({ timeMult: 0.2 }, 2500, animate.easeOut);
+			animate(this.model).now({ timeMult: 0.2 }, GAME_OVER_DELAY, animate.easeOut);
 			// special effects on player death
 			effects.emitExplosion(this.particles, this.player);
 			effects.emitEpicExplosion(this.particles, this.player);
@@ -173,7 +174,7 @@ exports = Class(GC.Application, function(supr) {
 			this.player.onDeath();
 			this.model.gameOver = true;
 			// reset the game after 2.5 seconds
-			setTimeout(bind(this, 'reset'), 2500);
+			setTimeout(bind(this, 'reset'), GAME_OVER_DELAY);
 		}
 	};
 });
