@@ -36,12 +36,12 @@
     "universal": "resources/splash/splash.png"
   },
   "studio": {
-    "domain": "gameclosure.com",
-    "name": "Game Closure"
+    "domain": "weeby.co",
+    "name": "Weeby.co"
   },
   "supportedOrientations": [
     "portrait"
   ],
-  "title": "Swarming Space",
+  "title": "Drone Swarm",
   "version": "1.0.0"
 }
