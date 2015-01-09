@@ -313,6 +313,13 @@ var Bullets = Class(EntityPool, function() {
 var Enemy = Class(Entity, function() {
 	var sup = Entity.prototype;
 	this.name = "Enemy";
+	this.viewClass = SpriteView;
+
+	this.reset = function(x, y, config) {
+		sup.reset.call(this, x, y, config);
+		this.view.resetAllAnimations(config);
+		this.view.startAnimation(config.defaultAnimation);
+	};
 
 	this.update = function(dt) {
 		sup.update.call(this, dt);
@@ -320,6 +327,11 @@ var Enemy = Class(Entity, function() {
 		if (this.y + b.y > app.player.getScreenY() + BG_HEIGHT) {
 			this.release();
 		}
+	};
+
+	this.release = function() {
+		this.view.stopAnimation();
+		sup.release.call(this);
 	};
 });
 

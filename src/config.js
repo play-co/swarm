@@ -63,6 +63,10 @@ exports = {
 		types: [
 			{
 				id: "enemyDrone",
+				url: "resources/images/enemyDrone",
+				defaultAnimation: "fly",
+				autoStart: false,
+				loop: true,
 				zIndex: 41,
 				isCircle: true,
 				vx: 0,
@@ -77,11 +81,14 @@ exports = {
 					y: -ENEMY_DRONE_SIZE / 2,
 					w: ENEMY_DRONE_SIZE,
 					h: ENEMY_DRONE_SIZE
-				},
-				image: "resources/images/enemyDrone.png"
+				}
 			},
 			{
 				id: "enemyMine",
+				url: "resources/images/mine",
+				defaultAnimation: "spin",
+				autoStart: false,
+				loop: true,
 				zIndex: 40,
 				isCircle: true,
 				vx: 0,
@@ -96,11 +103,14 @@ exports = {
 					y: -ENEMY_MINE_SIZE / 2,
 					w: ENEMY_MINE_SIZE,
 					h: ENEMY_MINE_SIZE
-				},
-				image: "resources/images/enemyMine.png"
+				}
 			},
 			{
 				id: "enemyDebris",
+				url: "resources/images/enemyDebris",
+				defaultAnimation: "fly",
+				autoStart: false,
+				loop: true,
 				zIndex: 39,
 				isCircle: false,
 				vx: 0,
@@ -116,8 +126,7 @@ exports = {
 					y: -ENEMY_DEBRIS_HEIGHT / 2,
 					w: ENEMY_DEBRIS_WIDTH,
 					h: ENEMY_DEBRIS_HEIGHT
-				},
-				image: "resources/images/enemyDebris.png"
+				}
 			}
 		],
 		spawnCooldownMin: 50,
