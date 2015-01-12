@@ -133,6 +133,7 @@ exports = {
 			yMultiplier: 0.125,
 			yCanSpawn: true,
 			yCanRelease: true,
+			yGapRange: [-1, -1],
 			ordered: true,
 			pieceOptions: [
 				{
