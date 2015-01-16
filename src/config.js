@@ -3,10 +3,10 @@ var BG_HEIGHT = 1024;
 var PLAYER_SIZE = 96;
 var BULLET_WIDTH = 28;
 var BULLET_HEIGHT = 72;
-var ENEMY_MINE_SIZE = 80;
-var ENEMY_DRONE_SIZE = 112;
-var ENEMY_DEBRIS_WIDTH = 36;
-var ENEMY_DEBRIS_HEIGHT = 168;
+var ENEMY_MINE_SIZE = 160;
+var ENEMY_DRONE_SIZE = 220;
+var ENEMY_DEBRIS_WIDTH = 192;
+var ENEMY_DEBRIS_HEIGHT = 384;
 
 exports = {
 	maxTick: 100,
@@ -96,11 +96,11 @@ exports = {
 				hitBounds: {
 					x: 0,
 					y: 2,
-					r: ENEMY_MINE_SIZE / 3
+					r: ENEMY_MINE_SIZE / 4
 				},
 				viewBounds: {
-					x: -ENEMY_MINE_SIZE / 2,
-					y: -ENEMY_MINE_SIZE / 2,
+					x: -ENEMY_MINE_SIZE / 4,
+					y: -ENEMY_MINE_SIZE / 4,
 					w: ENEMY_MINE_SIZE,
 					h: ENEMY_MINE_SIZE
 				}
@@ -314,7 +314,7 @@ exports = {
 			yMultiplier: 0.8,
 			yCanSpawn: true,
 			yCanRelease: true,
-			yGapRange: [0, 250],
+			yGapRange: [800, 2048],
 			pieceOptions: [
 				{
 					id: "debrisLeft1",
@@ -343,7 +343,7 @@ exports = {
 			yMultiplier: 0.8,
 			yCanSpawn: true,
 			yCanRelease: true,
-			yGapRange: [0, 250],
+			yGapRange: [800, 2048],
 			pieceOptions: [
 				{
 					id: "debrisRight1",
