@@ -5,8 +5,8 @@ var BULLET_WIDTH = 28;
 var BULLET_HEIGHT = 72;
 var ENEMY_MINE_SIZE = 160;
 var ENEMY_DRONE_SIZE = 220;
-var ENEMY_DEBRIS_WIDTH = 192;
-var ENEMY_DEBRIS_HEIGHT = 384;
+var ENEMY_WORM_WIDTH = 144;
+var ENEMY_WORM_HEIGHT = 288;
 
 exports = {
 	maxTick: 100,
@@ -74,7 +74,7 @@ exports = {
 				hitBounds: {
 					x: 0,
 					y: 0,
-					r: ENEMY_DRONE_SIZE / 2.5
+					r: ENEMY_DRONE_SIZE / 4
 				},
 				viewBounds: {
 					x: -ENEMY_DRONE_SIZE / 2,
@@ -95,19 +95,19 @@ exports = {
 				vy: 0.25,
 				hitBounds: {
 					x: 0,
-					y: 2,
-					r: ENEMY_MINE_SIZE / 4
+					y: 0,
+					r: ENEMY_MINE_SIZE / 5
 				},
 				viewBounds: {
-					x: -ENEMY_MINE_SIZE / 4,
-					y: -ENEMY_MINE_SIZE / 4,
+					x: -ENEMY_MINE_SIZE / 2,
+					y: -ENEMY_MINE_SIZE / 2,
 					w: ENEMY_MINE_SIZE,
 					h: ENEMY_MINE_SIZE
 				}
 			},
 			{
-				id: "enemyDebris",
-				url: "resources/images/enemyDebris",
+				id: "enemyWorm",
+				url: "resources/images/enemyWorm",
 				defaultAnimation: "fly",
 				autoStart: false,
 				loop: true,
@@ -116,16 +116,16 @@ exports = {
 				vx: 0,
 				vy: 0.1,
 				hitBounds: {
-					x: -ENEMY_DEBRIS_WIDTH / 2,
-					y: -ENEMY_DEBRIS_HEIGHT / 2,
-					w: ENEMY_DEBRIS_WIDTH,
-					h: ENEMY_DEBRIS_HEIGHT
+					x: -ENEMY_WORM_WIDTH / 4,
+					y: -0.4 * ENEMY_WORM_HEIGHT,
+					w: ENEMY_WORM_WIDTH / 2,
+					h: 0.8 * ENEMY_WORM_HEIGHT
 				},
 				viewBounds: {
-					x: -ENEMY_DEBRIS_WIDTH / 2,
-					y: -ENEMY_DEBRIS_HEIGHT / 2,
-					w: ENEMY_DEBRIS_WIDTH,
-					h: ENEMY_DEBRIS_HEIGHT
+					x: -ENEMY_WORM_WIDTH / 2,
+					y: -ENEMY_WORM_HEIGHT / 2,
+					w: ENEMY_WORM_WIDTH,
+					h: ENEMY_WORM_HEIGHT
 				}
 			}
 		],
