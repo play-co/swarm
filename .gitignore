@@ -1,2 +1,4 @@
 build
 modules
+.DS_Store
+.agentBuildInfo

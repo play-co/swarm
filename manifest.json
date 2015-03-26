@@ -2,13 +2,13 @@
   "addons": {},
   "android": {
     "icons": {
-      "114": "resources/icons/ios114.png",
-      "144": "resources/icons/ios144.png",
-      "36": "resources/icons/android36.png",
-      "48": "resources/icons/android48.png",
-      "57": "resources/icons/ios57.png",
-      "72": "resources/icons/android72.png",
-      "96": "resources/icons/android96.png"
+      "114": "resources/icons/114.png",
+      "144": "resources/icons/144.png",
+      "36": "resources/icons/36.png",
+      "48": "resources/icons/48.png",
+      "57": "resources/icons/57.png",
+      "72": "resources/icons/72.png",
+      "96": "resources/icons/96.png"
     },
     "versionCode": 1
   },
@@ -20,13 +20,13 @@
   },
   "ios": {
     "icons": {
-      "114": "resources/icons/ios114.png",
-      "144": "resources/icons/ios144.png",
-      "36": "resources/icons/android36.png",
-      "48": "resources/icons/android48.png",
-      "57": "resources/icons/ios57.png",
-      "72": "resources/icons/android72.png",
-      "96": "resources/icons/android96.png"
+      "114": "resources/icons/114.png",
+      "144": "resources/icons/144.png",
+      "36": "resources/icons/36.png",
+      "48": "resources/icons/48.png",
+      "57": "resources/icons/57.png",
+      "72": "resources/icons/72.png",
+      "96": "resources/icons/96.png"
     },
     "versionCode": 1
   },
