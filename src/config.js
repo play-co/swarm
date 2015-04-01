@@ -1,3 +1,4 @@
+var SHOW_HIT_BOUNDS = false;
 var BG_WIDTH = 576;
 var BG_HEIGHT = 1024;
 var PLAYER_SIZE = 96;
@@ -376,6 +377,7 @@ exports = {
 		text: "0",
 		horizontalAlign: "left",
 		spacing: 0,
+		zIndex: 50,
 		characterData: {
 			"0": { image: "resources/images/blue_0.png" },
 			"1": { image: "resources/images/blue_1.png" },
