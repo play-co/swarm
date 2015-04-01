@@ -1,6 +1,5 @@
 // devkit and module imports
 import ui.ParticleEngine as ParticleEngine;
-import parallax.Parallax as Parallax;
 
 // game imports
 import src.Enemies as Enemies;
@@ -11,7 +10,6 @@ import src.BaseGameView as BaseGameView;
 
 import src.config as config;
 import src.effects as effects;
-import src.utils as utils;
 
 exports = Class(BaseGameView, function(supr) {
 
@@ -22,8 +20,7 @@ exports = Class(BaseGameView, function(supr) {
 		this.inputLayer = new InputView({ parent: this });
 
 		// game background parallax
-		this.parallax = new Parallax({ parent: this.bgLayer });
-		this.parallax.reset(config.parallax);
+		this.parallax = this.newParallax();
 
 		// game elements
 		this.player = this.newGameElement(Player);

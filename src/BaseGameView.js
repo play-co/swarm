@@ -2,6 +2,8 @@ import device;
 import ui.View as View;
 import ui.ScoreView as ScoreView;
 
+import parallax.Parallax as Parallax;
+
 import src.config as config;
 
 var min = Math.min;
@@ -49,6 +51,18 @@ exports = Class(View, function(supr) {
     // var newArgs = [].splice.call(arguments, 1);
     var e = new ctor(opts);
     this._gameElements.push(e);
+    return e;
+  };
+
+  this.newParallax = function(opts) {
+    opts = opts || {};
+    opts = merge(opts || {}, {
+      ctor: Parallax,
+      parent: this.bgLayer,
+      config: config.parallax
+    });
+    var e = new opts.ctor(opts);
+    e.reset(opts.config);
     return e;
   };
 
