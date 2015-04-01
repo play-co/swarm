@@ -18,8 +18,13 @@ exports = Class(BaseGameView, function(supr) {
 
 		// game elements
 		this.player = this.newGameElement(Player);
-		this.bullets = this.newGameElement(Bullets);
-		this.enemies = this.newGameElement(Enemies);
+		this.bullets = this.newGameElement(Bullets, {
+			spawnMin: config.bullets.spawnCooldown
+		});
+		this.enemies = this.newGameElement(Enemies, {
+			spawnMin: config.enemies.spawnCooldownMin,
+      spawnMax: config.enemies.spawnCooldownMax
+		});
 		this.particles = this.newGameElement(ParticleEngine, { zIndex: 60 });
 
 		// game background parallax

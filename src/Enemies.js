@@ -10,14 +10,6 @@ var rollFloat = utils.rollFloat;
  * ~ a collection of enemies
  */
 exports = Class(BaseEntityPool, function(supr) {
-  this.init = function(opts) {
-    opts = merge(opts || {}, {
-      spawnMin: config.enemies.spawnCooldownMin,
-      spawnMax: config.enemies.spawnCooldownMax
-    });
-    supr(this, 'init', arguments);
-  };
-
   this.spawnEntity = function() {
     // increase game difficulty by spawning more enemies over time
     if (this.spawnMax > this.spawnMin) {

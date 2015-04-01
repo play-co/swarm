@@ -41,6 +41,7 @@ exports = {
 		bankMagnitude: 12
 	},
 	bullets: {
+		spawnCooldown: 80,
 		zIndex: 45,
 		isCircle: false,
 		vx: 0,
@@ -57,10 +58,11 @@ exports = {
 			w: BULLET_WIDTH,
 			h: BULLET_HEIGHT
 		},
-		image: "resources/images/laser.png",
-		spawnCooldown: 80
+		image: "resources/images/laser.png"
 	},
 	enemies: {
+		spawnCooldownMin: 50,
+		spawnCooldownMax: 500,
 		types: [
 			{
 				id: "enemyDrone",
@@ -120,9 +122,7 @@ exports = {
 				},
 				image: "resources/images/enemyDebris.png"
 			}
-		],
-		spawnCooldownMin: 50,
-		spawnCooldownMax: 500
+		]
 	},
 	parallax: [
 		{
