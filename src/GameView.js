@@ -16,15 +16,21 @@ exports = Class(BaseGameView, function(supr) {
 	this.init = function(opts) {
 		supr(this, 'init', arguments);
 
-		// game elements
+		// Create the player object
 		this.player = this.newGameElement(Player);
+
+		// Create the bullets entity pool
 		this.bullets = this.newGameElement(Bullets, {
 			spawnMin: config.bullets.spawnCooldown
 		});
+
+		// Create the enemies entity pool
 		this.enemies = this.newGameElement(Enemies, {
 			spawnMin: config.enemies.spawnCooldownMin,
       spawnMax: config.enemies.spawnCooldownMax
 		});
+
+		// Create the main particle system for the game
 		this.particles = this.newGameElement(ParticleEngine, { zIndex: 60 });
 
 		// game background parallax

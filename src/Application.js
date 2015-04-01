@@ -1,6 +1,9 @@
 import device;
 import src.GameView as GameView;
 
+// Note: There will be little need to edit this file.  General game edits
+//          should go in GameView.js
+
 /**
  * Application Class
  * ~ automatically instantiated by devkit
