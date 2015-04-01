@@ -1,6 +1,6 @@
 import animate;
 
-import src.utils as utils;
+import src.support.utils as utils;
 
 var PI = Math.PI;
 var TAU = 2 * PI;
@@ -28,6 +28,8 @@ var SMOKE_IMAGES = [
  * ~ general explosion effect
  */
 exports.emitExplosion = function(engine, entity) {
+	if (!engine) return;
+
 	var count = 16;
 	var data = engine.obtainParticleArray(count);
 	var size = 50;
@@ -61,6 +63,8 @@ exports.emitExplosion = function(engine, entity) {
 		p.compositeOperation = random() < 0.95 ? "lighter" : "";
 	}
 	engine.emitParticles(data);
+	// Fix for particle engine bug (seeing particle at old position)
+	engine.runTick(0);
 };
 
 /**
@@ -68,6 +72,8 @@ exports.emitExplosion = function(engine, entity) {
  * ~ an over-the-top explosion effect, ideal for player death
  */
 exports.emitEpicExplosion = function(engine, entity) {
+	if (!engine) return;
+
 	var count = 120;
 	var circle = count / 8;
 	var data = engine.obtainParticleArray(count);
@@ -122,6 +128,8 @@ exports.emitEpicExplosion = function(engine, entity) {
 		}
 	}
 	engine.emitParticles(data);
+	// Fix for particle engine bug (seeing particle at old position)
+	engine.runTick(0);
 };
 
 /**

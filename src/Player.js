@@ -2,7 +2,7 @@ import ui.SpriteView as SpriteView;
 
 import entities.Entity as Entity;
 import src.config as config;
-import src.effects as effects;
+import src.support.effects as effects;
 
 var max = Math.max;
 var min = Math.min;
@@ -40,25 +40,25 @@ exports = Class(Entity, function() {
     var xPrev = this.x;
     this.x = max(0, min(config.bgWidth, this.inputStartX + PLAYER_MOVE_MULT * dx));
 
-    // player animations based on horizontal movement
-    var mx = this.x - xPrev;
-    var animName = '';
-    if (abs(mx) > ROLL_MAGNITUDE) {
-      animName = 'roll';
-    } else if (mx < -BANK_MAGNITUDE) {
-      animName = 'bank';
-      this.view.style.flipX = false;
-    } else if (mx > BANK_MAGNITUDE) {
-      animName = 'bank';
-      this.view.style.flipX = true;
-    }
+    // Player animations based on horizontal movement
+    // var mx = this.x - xPrev;
+    // var animName = '';
+    // if (abs(mx) > ROLL_MAGNITUDE) {
+    //   animName = 'roll';
+    // } else if (mx < -BANK_MAGNITUDE) {
+    //   animName = 'bank';
+    //   this.view.style.flipX = false;
+    // } else if (mx > BANK_MAGNITUDE) {
+    //   animName = 'bank';
+    //   this.view.style.flipX = true;
+    // }
 
-    if (animName && !this.animating) {
-      this.animating = true;
-      this.view.startAnimation(animName, {
-        callback: bind(this, function() { this.animating = false; })
-      });
-    }
+    // if (animName && !this.animating) {
+    //   this.animating = true;
+    //   this.view.startAnimation(animName, {
+    //     callback: bind(this, function() { this.animating = false; })
+    //   });
+    // }
   };
 
   this.onDeath = function() {
